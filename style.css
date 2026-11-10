@@ -1,0 +1,144 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { overflow: hidden; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+#game-canvas { display: block; width: 100vw; height: 100vh; }
+
+#menu {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: rgba(30, 30, 40, 0.96);
+    color: #fff;
+    padding: 2rem 3rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    z-index: 10;
+    border: 1px solid #555;
+    min-width: 340px;
+}
+#menu h1 { font-size: 2.5rem; margin-bottom: 1rem; color: #ffcc00; }
+#menu p  { margin-bottom: 1.5rem; color: #ccc; }
+#menu button, #menu input {
+    display: block; width: 100%;
+    padding: 0.8rem; margin: 0.5rem 0;
+    border: none; border-radius: 6px;
+    font-size: 1rem; cursor: pointer;
+}
+#menu button { background: #4a90e2; color: white; font-weight: bold; transition: background 0.2s; }
+#menu button:hover { background: #357abd; }
+#menu button:disabled { background: #555; cursor: not-allowed; }
+#menu input { background: #222; color: #fff; border: 1px solid #444; }
+#status-message { margin-top: 1rem; font-size: 0.9rem; color: #aaa; }
+
+/* Badge ID de salle */
+#room-info {
+    position: fixed;
+    top: 20px; left: 20px;
+    background: rgba(0,0,0,0.75);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 1rem;
+    z-index: 6;
+    border: 2px solid #ffcc00;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Consolas', monospace;
+}
+#room-info-label { font-size: 0.9rem; color: #aaa; font-weight: normal; }
+#room-info-id { color: #ffcc00; font-weight: bold; user-select: text; }
+#room-info-hint {
+    font-size: 0.75rem;
+    color: #8ecae6;
+    background: rgba(142, 202, 230, 0.15);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+#hud {
+    position: absolute;
+    bottom: 20px; left: 20px;
+    color: white;
+    background: rgba(0,0,0,0.6);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    pointer-events: none;
+    z-index: 5;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+#brick-info { font-weight: bold; color: #ffcc00; }
+#progress-info { margin-top: 4px; font-weight: bold; color: #8ecae6; }
+#instruction { margin-top: 6px; font-size: 0.8rem; color: #aaa; }
+
+#crosshair {
+    position: fixed; top: 50%; left: 50%;
+    width: 20px; height: 20px;
+    transform: translate(-50%, -50%);
+    pointer-events: none; z-index: 6;
+}
+#crosshair::before, #crosshair::after {
+    content: ''; position: absolute;
+    background: rgba(255,255,255,0.85);
+    box-shadow: 0 0 2px rgba(0,0,0,0.9);
+}
+#crosshair::before { top: 50%; left: 0; width: 100%; height: 2px; transform: translateY(-50%); }
+#crosshair::after  { left: 50%; top: 0; height: 100%; width: 2px; transform: translateX(-50%); }
+
+#preview-panel {
+    position: fixed; top: 20px; right: 20px;
+    background: rgba(0,0,0,0.75);
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 10px; padding: 8px;
+    z-index: 6; color: white; text-align: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
+#preview-label {
+    font-size: 0.85rem; margin-bottom: 6px;
+    color: #ffcc00; font-weight: bold; letter-spacing: 0.5px;
+}
+#preview-canvas { display: block; border-radius: 6px; background: #1a1a24; }
+
+#toast {
+    position: fixed; top: 30%; left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.85); color: white;
+    padding: 14px 28px; border-radius: 8px;
+    font-size: 1.2rem; opacity: 0;
+    transition: opacity 0.3s; pointer-events: none; z-index: 20;
+    border: 1px solid #ffcc00;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+}
+#toast.show { opacity: 1; }
+
+#lock-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9;
+    cursor: pointer;
+    backdrop-filter: blur(2px);
+}
+#lock-hint {
+    color: white;
+    background: rgba(30, 30, 40, 0.95);
+    padding: 18px 36px;
+    border-radius: 12px;
+    font-size: 1.25rem;
+    font-weight: bold;
+    border: 2px solid #ffcc00;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    animation: pulse 2s ease-in-out infinite;
+    pointer-events: none;
+}
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+}

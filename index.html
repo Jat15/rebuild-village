@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brick by Brick - Low Poly</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="menu">
+        <h1>🧱 Brick by Brick</h1>
+        <p>Reconstruis la petite maison, brique par brique.</p>
+        <button id="btn-solo">▶️ Jouer en solo</button>
+        <button id="btn-host">🌐 Héberger une partie</button>
+        <button id="btn-join">🔗 Rejoindre une partie</button>
+        <input type="text" id="room-id-input" placeholder="ID de la salle" style="display:none;">
+        <button id="btn-connect" style="display:none;">Se connecter</button>
+        <p id="status-message"></p>
+    </div>
+
+    <!-- Badge ID de salle (visible en jeu) -->
+    <div id="room-info" style="display:none;">
+        <span id="room-info-label">🔑 Salle : </span>
+        <span id="room-info-id">---</span>
+        <span id="room-info-hint">[C] copier</span>
+    </div>
+
+    <div id="hud" style="display:none;">
+        <div id="brick-info">Briques portées : 0</div>
+        <div id="progress-info">Progression : 0 / 0</div>
+        <div id="instruction">ZQSD : bouger | Souris : regarder | Clic G : ramasser | Clic D : poser</div>
+    </div>
+
+    <div id="preview-panel" style="display:none;">
+        <div id="preview-label">📷 Plan de la maison</div>
+        <canvas id="preview-canvas" width="240" height="180"></canvas>
+    </div>
+
+    <div id="crosshair" style="display:none;"></div>
+    <div id="toast"></div>
+
+    <div id="lock-overlay" style="display:none;">
+        <div id="lock-hint">🖱️ Cliquez pour jouer</div>
+    </div>
+
+    <canvas id="game-canvas"></canvas>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.module.js"
+        }
+    }
+    </script>
+
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
